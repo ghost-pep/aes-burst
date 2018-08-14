@@ -1,0 +1,4 @@
+use AES128_decrypt() to decrypt a single aes block where:
+	-> ks == key
+	-> in == cipherblock
+	-> out == plainblock
