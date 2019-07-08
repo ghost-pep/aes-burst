@@ -2,32 +2,32 @@ syntax = "proto3";
 
 package aesburst;
 
-service AESBurstServerService {
+service AESBurstManager {
     // The user facing request that any frontend can query
     rpc BruteForce(BruteForceRequest) returns (BruteForceReply) {}
 }
 
 message BruteForceRequest {
-    int32 crib_len = 1;
-    bytes crib = 2;
-    bytes iv = 3;
+    string crib = 1;
+    bytes iv = 2;
     enum Mode {
         ECB = 1;
         CBC = 2;
         CTR = 3;
         ALL = 4;
     }
-    Mode mode = 4;
-    repeated bytes ciphertexts = 5;
-    repeated bytes keys = 6;
+    Mode mode = 3;
+    repeated bytes ciphertexts = 4;
+    repeated bytes keys = 5;
 }
 
 message BruteForceReply {
     repeated bytes candidate_keys = 1;
 }
 
-service AESBurstClientService {
+service AESBurstWorker {
     // Interface for the server to send the partial requests to the client
+    // TODO: look into streaming the ciphertexts and keys because they are a ton of data
     rpc BruteECB(PartialBruteRequest) returns (PartialBruteReply) {}
     rpc BruteCBC(PartialBruteRequest) returns (PartialBruteReply) {}
     rpc BruteCTR(PartialBruteRequest) returns (PartialBruteReply) {}
@@ -35,10 +35,9 @@ service AESBurstClientService {
 }
 
 message PartialBruteRequest {
-    bytes crib = 1;
-    int32 crib_len = 2;
-    repeated bytes keys = 3;
-    repeated bytes ciphertexts = 4;
+    string crib = 1;
+    repeated bytes keys = 2;
+    repeated bytes ciphertexts = 3;
 }
 
 message PartialBruteReply {
