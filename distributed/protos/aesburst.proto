@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package aesburst;
+
+service AESBurstServerService {
+    // The user facing request that any frontend can query
+    rpc BruteForce(BruteForceRequest) returns (BruteForceReply) {}
+}
+
+message BruteForceRequest {
+    int32 crib_len = 1;
+    bytes crib = 2;
+    bytes iv = 3;
+    enum Mode {
+        ECB = 1;
+        CBC = 2;
+        CTR = 3;
+        ALL = 4;
+    }
+    Mode mode = 4;
+    repeated bytes ciphertexts = 5;
+    repeated bytes keys = 6;
+}
+
+message BruteForceReply {
+    repeated bytes candidate_keys = 1;
+}
+
+service AESBurstClientService {
+    // Interface for the server to send the partial requests to the client
+    rpc BruteECB(PartialBruteRequest) returns (PartialBruteReply) {}
+    rpc BruteCBC(PartialBruteRequest) returns (PartialBruteReply) {}
+    rpc BruteCTR(PartialBruteRequest) returns (PartialBruteReply) {}
+
+}
+
+message PartialBruteRequest {
+    bytes crib = 1;
+    int32 crib_len = 2;
+    repeated bytes keys = 3;
+    repeated bytes ciphertexts = 4;
+}
+
+message PartialBruteReply {
+    repeated bytes partial_candidate_keys = 1;
+}

@@ -1,0 +1,19 @@
+Central server:
+* Central server that manages the IPs of the clients that do the work and
+provides a frontend for users to make requests
+* splits up the wordlists and distributes to the workers so that they have a
+unified interface
+* asynchronously get the results from the workers and displays it to the user eventually (could do a UI or just put results to a file for development simplicity)
+
+Workers:
+* ingest partial wordlist and basically uses the existing code to process results and send them back to the server
+* this would be minimal code here just to do the transfers and would be completely synchronous from the worker perspective
+
+Options for Dependencies:
+- for clean sync/async IO https://www.boost.org/doc/libs/1_70_0/doc/html/boost_asio.html
+- for even easier RPC calls https://www.grpc.io
+
+
+cmake
+protobufs
+grpc
