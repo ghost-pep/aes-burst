@@ -11,10 +11,10 @@ message BruteForceRequest {
     string crib = 1;
     bytes iv = 2;
     enum Mode {
-        ECB = 1;
-        CBC = 2;
-        CTR = 3;
-        ALL = 4;
+        ECB = 0;
+        CBC = 1;
+        CTR = 2;
+        ALL = 3;
     }
     Mode mode = 3;
     repeated bytes ciphertexts = 4;

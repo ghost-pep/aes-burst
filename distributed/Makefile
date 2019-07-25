@@ -20,7 +20,7 @@ PROTOS_PATH = ./protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check #client storage manager
+all: system-check manager#client storage
 
 # client: gtstore.pb.o gtstore.grpc.pb.o client.o
 # 	$(CXX) -Wall $^ $(LDFLAGS) -o $@
@@ -28,8 +28,8 @@ all: system-check #client storage manager
 # storage: gtstore.pb.o gtstore.grpc.pb.o storage.o
 # 	$(CXX) -Wall $^ $(LDFLAGS) -o $@
 #
-# manager: gtstore.pb.o gtstore.grpc.pb.o manager.o
-# 	$(CXX) -Wall $^ $(LDFLAGS) -o $@
+manager: aesburst.pb.o aesburst.grpc.pb.o manager.o
+	$(CXX) -Wall $^ $(LDFLAGS) -o $@
 
 .PRECIOUS: %.grpc.pb.cc
 %.grpc.pb.cc: %.proto

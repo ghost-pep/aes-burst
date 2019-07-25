@@ -12,6 +12,7 @@ using aesburst::BruteForceReply;
 using aesburst::BruteForceRequest;
 using aesburst::PartialBruteReply;
 using aesburst::PartialBruteRequest;
+using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Server;
 using grpc::ServerContext;
@@ -23,7 +24,7 @@ typedef unsigned char BYTE;
 
 typedef struct WorkerRequest {
   std::string crib;
-  BYTE[16] iv;
+  BYTE iv[16];
   char mode_flag;
   // ECB = 1;
   // CBC = 2;
@@ -40,10 +41,10 @@ public:
 
   void BruteECB(WorkerRequest_t *req) {
     // Setup the request to the worker
-    ParitalBruteRequest request;
-    request.set_crib(req->crib);
-    request.set_keys(req->keys);
-    request.set_ciphertexts(req->ciphertexts);
+    PartialBruteRequest request;
+    // request.set_crib(req->crib);
+    // request.set_keys(req->keys);
+    // request.set_ciphertexts(req->ciphertexts);
     PartialBruteReply reply;
     ClientContext context;
 
@@ -58,10 +59,10 @@ public:
   }
   void BruteCBC(WorkerRequest_t req) {
     // Setup the request to the worker
-    ParitalBruteRequest request;
-    request.set_crib(req->crib);
-    request.set_keys(req->keys);
-    request.set_ciphertexts(req->ciphertexts);
+    PartialBruteRequest request;
+    // request.set_crib(req->crib);
+    // request.set_keys(req->keys);
+    // request.set_ciphertexts(req->ciphertexts);
     PartialBruteReply reply;
     ClientContext context;
 
@@ -76,10 +77,10 @@ public:
   }
   void BruteCTR(WorkerRequest_t req) {
     // Setup the request to the worker
-    ParitalBruteRequest request;
-    request.set_crib(req->crib);
-    request.set_keys(req->keys);
-    request.set_ciphertexts(req->ciphertexts);
+    PartialBruteRequest request;
+    // request.set_crib(req->crib);
+    // request.set_keys(req->keys);
+    // request.set_ciphertexts(req->ciphertexts);
     PartialBruteReply reply;
     ClientContext context;
 
@@ -95,7 +96,7 @@ public:
 
 private:
   std::unique_ptr<AESBurstWorker::Stub> stub_;
-}
+};
 
 // Implement the interface for the actual manager service code
 class ManagerImpl final : public AESBurstManager::Service {
@@ -103,11 +104,15 @@ public:
   ManagerImpl() {}
 
   Status BruteForce(ServerContext *context, const BruteForceRequest *request,
-                    BruteForceReply *reply) override {}
+                    BruteForceReply *reply) override {
+    return Status::OK;
+  }
 
 private:
-}
+};
 
 } // namespace aesburst
+
+int main() { return 0; }
 
 #endif
