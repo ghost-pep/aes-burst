@@ -1,6 +1,7 @@
 #ifndef __AESBURSTMANAGER_H__
 #define __AESBURSTMANAGER_H__
 
+#include <mutex>
 #include <string>
 
 #include "aesburst.grpc.pb.h"
@@ -19,6 +20,8 @@ using grpc::ServerContext;
 using grpc::Status;
 
 namespace aesburst {
+
+std::mutex request_lock;
 
 typedef unsigned char BYTE;
 
@@ -105,6 +108,22 @@ public:
 
   Status BruteForce(ServerContext *context, const BruteForceRequest *request,
                     BruteForceReply *reply) override {
+    // pull the data out of the request
+    std::string crib(request->crib());
+    std::string iv(request->iv());
+    BruteForceRequest::Mode mode = request->mode();
+
+    // calculate the distribution of work
+
+    // lock for the actual work
+    request_lock.lock();
+
+    // request work for each worker connected
+    // distribute_work();
+
+    // unlock to allow other requests to go through
+    request_lock.unlock();
+
     return Status::OK;
   }
 

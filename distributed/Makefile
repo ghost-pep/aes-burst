@@ -20,10 +20,10 @@ PROTOS_PATH = ./protos
 
 vpath %.proto $(PROTOS_PATH)
 
-all: system-check manager#client storage
+all: system-check manager client #storage
 
-# client: gtstore.pb.o gtstore.grpc.pb.o client.o
-# 	$(CXX) -Wall $^ $(LDFLAGS) -o $@
+client: aesburst.pb.o aesburst.grpc.pb.o client.o
+	$(CXX) -Wall $^ $(LDFLAGS) -o $@
 
 # storage: gtstore.pb.o gtstore.grpc.pb.o storage.o
 # 	$(CXX) -Wall $^ $(LDFLAGS) -o $@
