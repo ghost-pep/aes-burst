@@ -30,8 +30,3 @@ to define the number of threads that will be used in the brute force. The thread
 from a queue, with each job being to handle a specific key.
 It saw a performance increase over the
 simple implementation in certain situations, but because of the limitations of AES-NI, the ideal number of threads correlates with the AES hardware on your processor.
-
-## OpenCL Implementation
-
-This implementation is not complete. It attempts to target powerful password cracking rigs. Help is 
-definitely wanted so feel free to make a pull request!
