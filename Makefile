@@ -9,7 +9,7 @@ INCLUDES += -I $(CPP_COMMON)
 PLATFORM = $(shell uname -s)
 LIBS = -lcryptopp -framework OpenCL 
 
-all: ocl simple multi
+all: simple multi
 
 simple: simplebuild
 	@echo Linking...;
@@ -28,18 +28,10 @@ multibuild:
 	@echo "====== Building multi implementation ======"
 	cd multi && make && cd ../..;
 
-ocl: oclbuild
-
-oclbuild:
-	@echo "====== Building OpenCL implementation ======"
-	cd ocl && make && cd ..;
-
 clean:
 	@echo "====== Cleaning ======"
 	cd simple/src && make clean && cd ../..;
 	rm -f aesburst-simple
-	cd ocl && make clean && cd ..;
-	rm -f aesburst-ocl
 	cd multi && make clean && cd ..;
 	rm -f aesburst-multi
 
