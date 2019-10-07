@@ -6,8 +6,8 @@ by unicornsasfuel. It was presented to DEFCON 27 under the talk Practical Key Se
 
 ## Installation
 
-This repo uses GNU make. The code has different dependencies depending on the program used. For the program presented at DEFCON, install cryptopp (`aesburst-multi`). Just clone the repository and then `cd aes_burst` and `make`. It's that simple!
-After building, 3 programs are generated: `aesburst-simple` and `aesburst-multi`.
+This repo uses GNU make. The code has different dependencies depending on the program used. For the program presented at DEFCON, install [cryptopp](https://cryptopp.com/) (`aesburst-multi`). Just clone the repository and then `cd aes_burst` and `make`. It's that simple!
+After building, 2 programs are generated: `aesburst-simple` and `aesburst-multi`.
 
 
 ## Usage
