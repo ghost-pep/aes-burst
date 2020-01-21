@@ -4,7 +4,8 @@ package aesburst;
 
 service AESBurstManager {
     // The user facing request that any frontend can query
-    rpc BruteForce(BruteForceRequest) returns (BruteForceReply) {}
+    // TODO: look into streaming the ciphertexts and keys because they are a ton of data
+    rpc BruteForceSetup(BruteForceRequest) returns (BruteForceReply) {}
 }
 
 message BruteForceRequest {
